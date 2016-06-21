@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="设置界面"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:background="#99CCFF"
+        android:gravity="center"/>
+    <RelativeLayout
+        android:id="@+id/rl_setting_update"
+        android:clickable="true"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_setting_first">
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自动更新设置"
+            android:textSize="16sp"/>
+        <com.itheima.mobilesafe.ui.SwitchImageView
+            android:id="@+id/siv_setting_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/on"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_setting_middle">
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置选项01"
+            android:textSize="16sp"/>
+        <com.itheima.mobilesafe.ui.SwitchImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/on"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_setting_last">
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置选项02"
+            android:textSize="16sp"/>
+        <com.itheima.mobilesafe.ui.SwitchImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/on"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

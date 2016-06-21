@@ -1,6 +1,7 @@
 package com.itheima.mobilesafe.activities;
 
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +37,15 @@ public class HomeActivity extends AppCompatActivity {
         gv_home_item = (GridView)findViewById(R.id.gv_home_item);
 
         gv_home_item.setAdapter(new HomeAdapter());
+    }
+
+    /**
+     * 点击进入设置页面
+     * @param view
+     */
+    public void enterSettingActivity(View view){
+        Intent intent = new Intent(this,SettingActivity.class);
+        startActivity(intent);
     }
 
     private class HomeAdapter extends BaseAdapter{

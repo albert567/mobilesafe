@@ -35,6 +35,12 @@
             android:singleLine="true"
             android:ellipsize="marquee"
             android:focusableInTouchMode="true"/>
+        <ImageButton
+            android:onClick="enterSettingActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
     <GridView
         android:id="@+id/gv_home_item"

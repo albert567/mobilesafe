@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -67,8 +68,21 @@ public class SplashActivity extends Activity {
         String version = PackageInfoUtils.getPackageVersion(this);
         tv_splash_version = (TextView) findViewById(R.id.tv_splash_version);
         tv_splash_version.setText("版本:" + version);
-
-        new Thread(new CheckVersionTask()).start();
+        //检查sp里面的状态,看自动更新是否开启
+        SharedPreferences sp = getSharedPreferences("config",MODE_PRIVATE);
+        boolean update = sp.getBoolean("update",true);
+        if(update){
+            //开启子线程获取服务器的版本信息
+            new Thread(new CheckVersionTask()).start();
+        }else{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    SystemClock.sleep(1500);
+                    loadMainUI();
+                }
+            }).start();
+        }
     }
 
     /**

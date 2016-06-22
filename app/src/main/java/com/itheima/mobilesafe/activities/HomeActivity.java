@@ -1,19 +1,30 @@
 package com.itheima.mobilesafe.activities;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itheima.mobilesafe.R;
 
 public class HomeActivity extends AppCompatActivity {
+    private static final String TAG = "HomeActivity";
+    private SharedPreferences sp;
     private ImageView iv_home_logo;
     private GridView gv_home_item;
     final String[] names = new String[]{"手机防盗","骚扰拦截","软件管家","进程管理",
@@ -27,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        sp = getSharedPreferences("config", Context.MODE_PRIVATE);
         iv_home_logo = (ImageView)findViewById(R.id.iv_home_logo);
         ObjectAnimator oa = ObjectAnimator.ofFloat(iv_home_logo,"rotationY",45,90,135,180,225,270,315);
         oa.setDuration(3000);
@@ -35,7 +47,25 @@ public class HomeActivity extends AppCompatActivity {
         oa.start();
 
         gv_home_item = (GridView)findViewById(R.id.gv_home_item);
-
+        gv_home_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0://手机防盗
+                        Log.i(TAG,"进入手机防盗");
+                        if(isSetupPwd()){
+                            Log.i(TAG,"弹出输入密码的界面");
+                            showEnterPwdDialog();
+                        }else{
+                            Log.i(TAG,"弹出设置密码的界面");
+                            showSetupPwdDialog();
+                        }
+                        break;
+                    case 1://骚扰拦截
+                        break;
+                }
+            }
+        });
         gv_home_item.setAdapter(new HomeAdapter());
     }
 
@@ -46,6 +76,83 @@ public class HomeActivity extends AppCompatActivity {
     public void enterSettingActivity(View view){
         Intent intent = new Intent(this,SettingActivity.class);
         startActivity(intent);
+    }
+
+    private AlertDialog dialog;
+    /**
+     * 显示设置密码对话框,自定义对话框
+     */
+    protected void showSetupPwdDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this,R.layout.dialog_setup_pwd,null);
+        builder.setView(view);
+        final EditText et_dialog_pwd = (EditText)view.findViewById(R.id.et_dialog_pwd);
+        final EditText et_dialog_pwd_confirm = (EditText)view.findViewById(R.id.et_dialog_pwd_confirm);
+        Button bt_dialog_ok = (Button)view.findViewById(R.id.bt_dialog_ok);
+        bt_dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pwd = et_dialog_pwd.getText().toString().trim();
+                String pwd_confirm = et_dialog_pwd_confirm.getText().toString().trim();
+
+                if(TextUtils.isEmpty(pwd)||TextUtils.isEmpty(pwd_confirm)){
+                    Toast.makeText(HomeActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!pwd.equals(pwd_confirm)){
+                    Toast.makeText(HomeActivity.this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("pwd",pwd);
+                editor.commit();
+                //关闭对话框
+                dialog.dismiss();
+                //弹出输入密码对话框
+                showEnterPwdDialog();
+            }
+        });
+        Button bt_dialog_cancel = (Button)view.findViewById(R.id.bt_dialog_cancel);
+        bt_dialog_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        //显示对话框,把对话框的引用赋给类的成员变量
+        dialog = builder.show();
+    }
+
+    protected void showEnterPwdDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = View.inflate(this,R.layout.dialog_enter_pwd,null);
+        builder.setView(view);
+        final EditText et_dialog_pwd = (EditText)view.findViewById(R.id.et_dialog_pwd);
+        Button bt_dialog_ok = (Button)view.findViewById(R.id.bt_dialog_ok);
+        bt_dialog_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pwd = et_dialog_pwd.getText().toString().trim();
+                if(TextUtils.isEmpty(pwd)){
+                    Toast.makeText(HomeActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(pwd.equals(sp.getString("pwd",""))){
+                    dialog.dismiss();
+                    Toast.makeText(HomeActivity.this, "密码输入正确,进入手机防盗界面", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(HomeActivity.this, "密码输入错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        Button bt_dialog_cancel = (Button)view.findViewById(R.id.bt_dialog_cancel);
+        bt_dialog_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog = builder.show();
     }
 
     private class HomeAdapter extends BaseAdapter{
@@ -89,6 +196,15 @@ public class HomeActivity extends AppCompatActivity {
             ImageView iv_homeitem_icon;
             TextView tv__homeitem_title,tv_homeitem_desc;
         }
+    }
+
+    /**
+     * 判断用户是否设置过密码
+     * @return
+     */
+    private boolean isSetupPwd(){
+        String pwd = sp.getString("pwd","");
+        return TextUtils.isEmpty(pwd)?false:true;
     }
 
 }

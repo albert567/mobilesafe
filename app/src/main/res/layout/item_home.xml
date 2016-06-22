@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:background="@drawable/antispam_report_button"
+    android:background="@drawable/item_background"
     android:padding="5dp">
     <ImageView
         android:id="@+id/iv_homeitem_icon"

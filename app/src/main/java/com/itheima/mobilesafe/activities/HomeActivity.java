@@ -139,7 +139,20 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 if(pwd.equals(sp.getString("pwd",""))){
                     dialog.dismiss();
-                    Toast.makeText(HomeActivity.this, "密码输入正确,进入手机防盗界面", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(HomeActivity.this, "密码输入正确,进入手机防盗界面", Toast.LENGTH_SHORT).show();
+                    //判断用户是否进入过设置向导界面,如果用户是第一次使用手机防盗功能,定向页面到设置向导
+                    boolean configed = sp.getBoolean("configed",false);
+                    if(configed){
+                        Log.i(TAG,"用户完成过设置向导,进入手机防盗的ui界面");
+                        Intent intent = new Intent(HomeActivity.this,LostFindActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Log.i(TAG,"用户没有完成过设置向导,进入设置向导界面");
+                        Intent intent = new Intent(HomeActivity.this,Setup1Activity.class);
+                        startActivity(intent);
+                    }
+
+
                 }else{
                     Toast.makeText(HomeActivity.this, "密码输入错误", Toast.LENGTH_SHORT).show();
                 }

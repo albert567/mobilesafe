@@ -24,7 +24,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.HomeActivity" />
-        <activity android:name=".activities.SettingActivity"></activity>
+        <activity android:name=".activities.SettingActivity" />
+        <activity android:name=".activities.LostFindActivity" />
+        <activity android:name=".activities.Setup1Activity" />
+        <activity android:name=".activities.Setup2Activity" />
+        <activity android:name=".activities.Setup3Activity" />
+        <activity android:name=".activities.Setup4Activity"></activity>
     </application>
 
 </manifest>

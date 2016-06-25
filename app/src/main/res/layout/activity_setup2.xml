@@ -39,7 +39,8 @@
             style="@style/button_next"
             android:onClick="showNext"/>
         <Button
-            style="@style/button_pre"/>
+            style="@style/button_pre"
+            android:onClick="showPre"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

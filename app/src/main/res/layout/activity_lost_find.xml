@@ -43,7 +43,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:clickable="true"
+        android:onClick="reloadSetupUI"
+        android:background="@drawable/dg_cancel_selector">
         <TextView
             style="@style/text_content"
             android:text="重新进入设置向导"

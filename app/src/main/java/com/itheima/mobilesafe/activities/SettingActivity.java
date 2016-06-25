@@ -1,17 +1,16 @@
 package com.itheima.mobilesafe.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.itheima.mobilesafe.R;
 import com.itheima.mobilesafe.ui.SwitchImageView;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends Activity {
     //共享参数
     private SharedPreferences sp;
     private SwitchImageView siv_setting_update;

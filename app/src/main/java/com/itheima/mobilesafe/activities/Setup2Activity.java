@@ -1,13 +1,12 @@
 package com.itheima.mobilesafe.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.itheima.mobilesafe.R;
 
-public class Setup2Activity extends AppCompatActivity {
+public class Setup2Activity extends SetupBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,12 +14,16 @@ public class Setup2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_setup2);
     }
 
-    /**
-     * 显示下一个界面
-     * @param view
-     */
-    public void showNext(View view){
-        Intent intent = new Intent(Setup2Activity.this,Setup3Activity.class);
-        startActivity(intent);
+    @Override
+    public void next() {
+        openNewActivityAndFinish(Setup3Activity.class);
+        //修改Activity切换的动画效果
+        overridePendingTransition(R.anim.anim_in,R.anim.anim_out);
+    }
+
+    @Override
+    public void pre() {
+        openNewActivityAndFinish(Setup1Activity.class);
+        overridePendingTransition(R.anim.anim_pre_in,R.anim.anim_pre_out);
     }
 }

@@ -12,10 +12,12 @@
         android:text="如果SIM卡变化:\n报警短信就会发给安全号码"
         style="@style/text_content"/>
     <EditText
+        android:id="@+id/et_setup3_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入或选择安全号码"/>
     <Button
+        android:onClick="selectContacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="选择安全号码"

@@ -14,6 +14,7 @@
             style="@style/text_content"
             android:text="安全号码"/>
         <TextView
+            android:id="@+id/tv_lostfind_number"
             style="@style/text_content"
             android:text="number"
             android:layout_alignParentRight="true"/>
@@ -24,6 +25,9 @@
         android:layout_height="1dp"
         android:background="#33000000"/>
     <RelativeLayout
+        android:onClick="changeProtectStatus"
+        android:background="@drawable/dg_cancel_selector"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp">
@@ -31,10 +35,11 @@
         style="@style/text_content"
         android:text="防盗保护的状态"/>
         <ImageView
+            android:id="@+id/iv_lostfind_status"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/unlock"/>
+            android:src="@drawable/unlock"/>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"

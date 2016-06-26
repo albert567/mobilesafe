@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.SystemClock;
 
 import com.itheima.mobilesafe.domain.ContactInfo;
 
@@ -52,6 +53,7 @@ public class ContactInfoUtils {
             }
         }
         cursor.close();
+        SystemClock.sleep(3000);
         return infos;
     }
 }

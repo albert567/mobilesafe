@@ -87,8 +87,8 @@ public abstract class SetupBaseActivity extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //让手势识别器识别传进来的事件
-        mGestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
+        return mGestureDetector.onTouchEvent(event);
+        //return super.onTouchEvent(event);
     }
 
     /**

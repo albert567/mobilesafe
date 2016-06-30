@@ -1,5 +1,6 @@
 package com.itheima.mobilesafe.receiver;
 
+import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 
 import com.itheima.mobilesafe.R;
+import com.itheima.mobilesafe.service.LocationService;
 
 /**
  * Created by zyp on 2016/6/26.
@@ -23,6 +25,9 @@ public class SmsReceiver extends BroadcastReceiver{
             String body = smsMessage.getMessageBody();
             if("#*location*#".equals(body)){
                 Log.i(TAG,"返回手机的位置");
+                //开启一个后台的服务,在服务里面获取手机的位置
+                Intent i = new Intent(context, LocationService.class);
+                context.startService(i);
                 abortBroadcast();
             }else if("#*alarm*#".equals(body)){
                 Log.i(TAG,"播放报警音乐");
@@ -32,9 +37,15 @@ public class SmsReceiver extends BroadcastReceiver{
                 abortBroadcast();
             }else if("#*wipedata*#".equals(body)){
                 Log.i(TAG,"立刻清除数据");
+                DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                //前提必须先开启超级管理员权限
+                dpm.wipeData(DevicePolicyManager.WIPE_EXTERNAL_STORAGE);//内存和外存,0只内存
                 abortBroadcast();
             }else if("#*lockscreen*#".equals(body)){
                 Log.i(TAG,"立刻锁屏");
+                DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                dpm.resetPassword("123",0);
+                dpm.lockNow();
                 abortBroadcast();
             }
         }

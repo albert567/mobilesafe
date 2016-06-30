@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itheima.mobilesafe.R;
+import com.itheima.mobilesafe.ui.Md5Utils;
 
 public class HomeActivity extends Activity {
     private static final String TAG = "HomeActivity";
@@ -104,7 +105,7 @@ public class HomeActivity extends Activity {
                     return;
                 }
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("pwd",pwd);
+                editor.putString("pwd", Md5Utils.encode(pwd));
                 editor.commit();
                 //关闭对话框
                 dialog.dismiss();
@@ -137,7 +138,7 @@ public class HomeActivity extends Activity {
                     Toast.makeText(HomeActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(pwd.equals(sp.getString("pwd",""))){
+                if(Md5Utils.encode(pwd).equals(sp.getString("pwd",""))){
                     dialog.dismiss();
                     //Toast.makeText(HomeActivity.this, "密码输入正确,进入手机防盗界面", Toast.LENGTH_SHORT).show();
                     //判断用户是否进入过设置向导界面,如果用户是第一次使用手机防盗功能,定向页面到设置向导

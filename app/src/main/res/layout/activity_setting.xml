@@ -35,6 +35,7 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/rl_callsmssafe"
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,9 +45,10 @@
             android:padding="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="设置选项01"
+            android:text="骚扰拦截设置"
             android:textSize="16sp"/>
         <com.itheima.mobilesafe.ui.SwitchImageView
+            android:id="@+id/siv_callsmssafe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/on"

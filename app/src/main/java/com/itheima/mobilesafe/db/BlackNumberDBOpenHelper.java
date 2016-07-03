@@ -15,7 +15,7 @@ public class BlackNumberDBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //id主键自增长，phone电话号码，mode拦截模式
-        db.execSQL("create table blacknumber _id integer primary key autoincrement,phone varchar(20),mode varchar(2)");
+        db.execSQL("create table blacknumber(_id integer primary key autoincrement,phone varchar(20),mode varchar(2))");
     }
 
     @Override

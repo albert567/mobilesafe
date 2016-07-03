@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.itheima.mobilesafe.db.BlackNumberDBOpenHelper;
+import com.itheima.mobilesafe.domain.BlackNumberInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 黑名单数据库，增删改查的api
@@ -27,13 +31,18 @@ public class BlackNumberDao {
      * @param phone 黑名单号码
      * @param mode 拦截模式
      */
-    public void add(String phone,String mode){
+    public boolean add(String phone,String mode){
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("phone",phone);
         values.put("mode",mode);
-        db.insert("blacknumber",null,values);
+        long result = db.insert("blacknumber",null,values);
         db.close();
+        if(result!=-1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -86,5 +95,24 @@ public class BlackNumberDao {
         cursor.close();
         db.close();
         return mode;
+    }
+
+    /**
+     * 获取全部的黑名单号码信息
+     * @return
+     */
+    public List<BlackNumberInfo> findAll(){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        List<BlackNumberInfo> infos = new ArrayList<BlackNumberInfo>();
+        Cursor cursor = db.query("blacknumber",new String[]{"_id","phone","mode"},null,null,null,null,null);
+        while(cursor.moveToNext()){
+            String id = cursor.getString(0);
+            String phone = cursor.getString(1);
+            String mode = cursor.getString(2);
+            BlackNumberInfo info = new BlackNumberInfo(id,phone,mode);
+            infos.add(info);
+        }
+        cursor.close();
+        return infos;
     }
 }

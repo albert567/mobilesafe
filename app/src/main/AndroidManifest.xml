@@ -46,6 +46,7 @@
         <activity android:name=".activities.SelectContactActivity" />
 
         <service android:name=".service.LocationService" />
+        <service android:name=".service.CallSmsSafeService" />
         <!-- 手机重新开启的广播接收者 -->
         <receiver android:name=".receiver.BootCompleteReceiver">
             <intent-filter>

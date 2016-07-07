@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -83,6 +84,34 @@ public class SplashActivity extends Activity {
                 }
             }).start();
         }
+        copyAddressDB();
+    }
+
+    private void copyAddressDB(){
+        File file = new File(getFilesDir(),"address.db");
+        if(file.exists()&&file.length()>0){
+            Log.i(TAG,"数据库存在，无需拷贝");
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //把assets资产目录里面的数据库文件（在apk里面的）拷贝到手机系统里面
+                try {
+                    InputStream is = getAssets().open("address.db");
+                    File file = new File(getFilesDir(),"address.db");
+                    FileOutputStream fos = new FileOutputStream(file);
+                    byte[] buffer = new byte[1024];
+                    int len = -1;
+                    while((len = is.read(buffer))!=-1){
+                        fos.write(buffer,0,len);
+                    }
+                    fos.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     /**

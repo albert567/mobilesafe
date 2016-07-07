@@ -81,7 +81,10 @@
             android:name=".activities.CallSmsSafeActivity"
             android:label="@string/title_activity_call_sms_safe"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.AddBlackNumberActivity"></activity>
+        <activity android:name=".activities.AddBlackNumberActivity" />
+        <activity
+            android:name=".activities.CommonToolsActivity"></activity>
+        <activity android:name=".activities.NumberQueryActivity" />
     </application>
 
 </manifest>

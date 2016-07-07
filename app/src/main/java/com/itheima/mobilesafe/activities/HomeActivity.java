@@ -51,6 +51,7 @@ public class HomeActivity extends Activity {
         gv_home_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = null;
                 switch (position){
                     case 0://手机防盗
                         Log.i(TAG,"进入手机防盗");
@@ -63,7 +64,11 @@ public class HomeActivity extends Activity {
                         }
                         break;
                     case 1://骚扰拦截
-                        Intent intent = new Intent(HomeActivity.this,CallSmsSafeActivity.class);
+                        intent = new Intent(HomeActivity.this,CallSmsSafeActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 7:
+                        intent = new Intent(HomeActivity.this,CommonToolsActivity.class);
                         startActivity(intent);
                         break;
                 }

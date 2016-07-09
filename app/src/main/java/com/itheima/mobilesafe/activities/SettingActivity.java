@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.itheima.mobilesafe.R;
 import com.itheima.mobilesafe.service.CallSmsSafeService;
+import com.itheima.mobilesafe.service.ShowAddressService;
 import com.itheima.mobilesafe.ui.SwitchImageView;
 import com.itheima.mobilesafe.utils.ServiceStatusUtils;
 
@@ -22,6 +23,9 @@ public class SettingActivity extends Activity {
     //骚扰拦截的控件声明
     private SwitchImageView siv_callsmssafe;
     private RelativeLayout rl_callsmssafe;
+    //归属地显示设置的控件声明
+    private SwitchImageView siv_showlocation;
+    private RelativeLayout rl_showlocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +58,28 @@ public class SettingActivity extends Activity {
             public void onClick(View v) {
                 siv_callsmssafe.changeSwitchStatus();
                 boolean status = siv_callsmssafe.getSwitchStatus();
-                //保存开关状态到sp
                 Intent intent = new Intent(SettingActivity.this, CallSmsSafeService.class);
+                if(status){
+                    startService(intent);
+                }else{
+                    stopService(intent);
+                }
+            }
+        });
+
+        //初始化归属地显示的设置
+        siv_showlocation = (SwitchImageView)findViewById(R.id.siv_showlocation);
+        rl_showlocation = (RelativeLayout)findViewById(R.id.rl_showlocation);
+        //获取当前服务运行的状态，根据状态去修改界面显示的内容
+        boolean showAddressStatus = ServiceStatusUtils.isServiceRunning(this,
+                "com.itheima.mobilesafe.service.ShowAddressService");
+        siv_showlocation.setSwitchStatus(showAddressStatus);
+        rl_showlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                siv_showlocation.changeSwitchStatus();
+                boolean status = siv_showlocation.getSwitchStatus();
+                Intent intent = new Intent(SettingActivity.this, ShowAddressService.class);
                 if(status){
                     startService(intent);
                 }else{

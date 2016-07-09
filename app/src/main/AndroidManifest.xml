@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
     <application
         android:allowBackup="true"
@@ -50,6 +51,7 @@
 
         <service android:name=".service.LocationService" />
         <service android:name=".service.CallSmsSafeService" />
+        <service android:name=".service.ShowAddressService" />
         <!-- 手机重新开启的广播接收者 -->
         <receiver android:name=".receiver.BootCompleteReceiver">
             <intent-filter>

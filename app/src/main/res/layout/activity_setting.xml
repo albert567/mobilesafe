@@ -56,6 +56,7 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/rl_showlocation"
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,7 +66,27 @@
             android:padding="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="设置选项02"
+            android:text="归属地显示设置"
+            android:textSize="16sp"/>
+        <com.itheima.mobilesafe.ui.SwitchImageView
+            android:id="@+id/siv_showlocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/on"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_setting_last">
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="设置选项2"
             android:textSize="16sp"/>
         <com.itheima.mobilesafe.ui.SwitchImageView
             android:layout_width="wrap_content"

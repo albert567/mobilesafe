@@ -77,6 +77,20 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/rl_setting_changestyle"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_setting_last">
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:padding="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="修改归属地风格"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+    <RelativeLayout
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

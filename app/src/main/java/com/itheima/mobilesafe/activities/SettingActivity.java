@@ -1,7 +1,9 @@
 package com.itheima.mobilesafe.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +28,9 @@ public class SettingActivity extends Activity {
     //归属地显示设置的控件声明
     private SwitchImageView siv_showlocation;
     private RelativeLayout rl_showlocation;
+    //修改归属地风格
+    private RelativeLayout rl_setting_changestyle;
+    private String[] bgNames = {"半透明","活力橙","卫士蓝","金属灰","苹果绿"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +90,28 @@ public class SettingActivity extends Activity {
                 }else{
                     stopService(intent);
                 }
+            }
+        });
+
+        //修改归属地风格
+        rl_setting_changestyle = (RelativeLayout)findViewById(R.id.rl_setting_changestyle);
+        rl_setting_changestyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //弹出修改归属地显示风格
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                builder.setIcon(R.drawable.dialog_title_default_icon);
+                builder.setTitle("归属地提示框风格");
+                builder.setSingleChoiceItems(bgNames, sp.getInt("which",0), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putInt("which",which);
+                        editor.commit();
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
             }
         });
     }

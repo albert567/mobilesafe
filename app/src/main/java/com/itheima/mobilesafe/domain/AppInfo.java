@@ -24,6 +24,30 @@ public class AppInfo {
      * 应用程序大小
      */
     private long appSize;
+    /**
+     * 是否安装在手机的内部存储空间
+     */
+    private boolean inRom;
+    /**
+     * 是否是系统应用
+     */
+    private boolean systemApp;
+
+    public boolean isInRom() {
+        return inRom;
+    }
+
+    public void setInRom(boolean inRom) {
+        this.inRom = inRom;
+    }
+
+    public boolean isSystemApp() {
+        return systemApp;
+    }
+
+    public void setSystemApp(boolean systemApp) {
+        this.systemApp = systemApp;
+    }
 
     public Drawable getAppIcon() {
         return appIcon;

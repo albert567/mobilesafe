@@ -48,5 +48,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF888888"
+            android:text="用户程序：4"
+            android:textColor="#ffffff"/>
     </FrameLayout>
 </LinearLayout>

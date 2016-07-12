@@ -5,12 +5,16 @@ import android.content.SyncStatusObserver;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.Formatter;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,7 +30,13 @@ public class AppManagerActivity extends Activity {
     private TextView tv_internal_size;
     private TextView tv_sd_size;
     private ListView lv_app;
+    private TextView tv_status;
     private LinearLayout ll_loading;
+    /**
+     * 代表的是程序信息的悬浮窗体
+     * 需求：在Activity上只有一个悬浮窗体存在。
+     */
+    private PopupWindow popupWindow;
     //所有的应用程序
     private List<AppInfo> appInfos;
     //用户应用程序
@@ -39,7 +49,31 @@ public class AppManagerActivity extends Activity {
         setContentView(R.layout.activity_app_manager);
         tv_internal_size = (TextView) findViewById(R.id.tv_internal_size);
         tv_sd_size = (TextView) findViewById(R.id.tv_sd_size);
+        tv_status = (TextView) findViewById(R.id.tv_status);
         lv_app = (ListView) findViewById(R.id.lv_app);
+        lv_app.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(userAppInfos != null&&systemAppInfos != null){
+                    if(firstVisibleItem>userAppInfos.size()){
+                        tv_status.setText("系统程序：" + systemAppInfos.size());
+                    }else{
+                        tv_status.setText("用户程序：" + userAppInfos.size());
+                    }
+                }
+                if(popupWindow != null){
+                    popupWindow.dismiss();
+                    popupWindow = null;
+                }
+            }
+        });
+        setAppInfoItemClickListener();
+
         ll_loading = (LinearLayout) findViewById(R.id.ll_loading);
         systemAppInfos = new ArrayList<AppInfo>();
         userAppInfos = new ArrayList<AppInfo>();
@@ -70,6 +104,37 @@ public class AppManagerActivity extends Activity {
                 });
             }
         }.start();
+    }
+    //给界面上的ListView注册一个点击事件
+    private void setAppInfoItemClickListener() {
+        lv_app.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AppInfo appinfo;
+                if(position==0){//第0个位置是一个textview标签
+                    return ;
+                }else if(position==(userAppInfos.size()+1)){
+                    return ;
+                }else if(position<=userAppInfos.size()){//用户程序
+                    int newPosition = position - 1;//减去用户的标签textview占据的位置
+                    appinfo = userAppInfos.get(newPosition);
+                }else{//系统程序
+                    int newPosition = position - 1 - userAppInfos.size() - 1;
+                    appinfo = systemAppInfos.get(newPosition);
+                }
+                TextView contentView = new TextView(AppManagerActivity.this);
+                contentView.setText(appinfo.getPackName());
+                contentView.setBackgroundColor(Color.GRAY);
+                int[] location = new int[2];
+                view.getLocationInWindow(location);
+                if(popupWindow != null){
+                    popupWindow.dismiss();
+                    popupWindow = null;
+                }
+                popupWindow = new PopupWindow(contentView,-2,-2);
+                popupWindow.showAtLocation(parent, Gravity.LEFT+Gravity.TOP,20,location[1]);
+            }
+        });
     }
 
     private class AppManagerAdapter extends BaseAdapter{

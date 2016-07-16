@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itheima.mobilesafe.R;
+import com.itheima.mobilesafe.service.UpdateWidgetService;
 import com.itheima.mobilesafe.utils.PackageInfoUtils;
 import com.itheima.mobilesafe.utils.StreamTools;
 import com.lidroid.xutils.HttpUtils;

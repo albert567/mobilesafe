@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mobilesafe</string>
+    <string name="app_name">黑马安全卫士</string>
     <string name="sample_device_admin">手机卫士管理员</string>
     <string name="sample_device_admin_description">手机卫士超级管理员开启后可以远程锁屏,销毁数据</string>
     <string name="title_activity_call_sms_safe">CallSmsSafeActivity</string>

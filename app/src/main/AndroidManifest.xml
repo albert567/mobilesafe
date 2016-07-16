@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <application
         android:allowBackup="true"
@@ -89,7 +90,8 @@
         <activity android:name=".activities.AddBlackNumberActivity" />
         <activity android:name=".activities.CommonToolsActivity" />
         <activity android:name=".activities.NumberQueryActivity" />
-        <activity android:name=".activities.AppManagerActivity"></activity>
+        <activity android:name=".activities.AppManagerActivity" />
+        <activity android:name=".activities.ProcessManagerActivity"></activity>
     </application>
 
 </manifest>

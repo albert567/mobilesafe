@@ -87,7 +87,10 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider" android:resource="@xml/process_widget_provider" />
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/process_widget_provider" />
         </receiver>
         <receiver android:name=".receiver.KillAllReceiver">
             <intent-filter>
@@ -103,7 +106,8 @@
         <activity android:name=".activities.CommonToolsActivity" />
         <activity android:name=".activities.NumberQueryActivity" />
         <activity android:name=".activities.AppManagerActivity" />
-        <activity android:name=".activities.ProcessManagerActivity"></activity>
+        <activity android:name=".activities.ProcessManagerActivity" />
+        <activity android:name=".activities.TrafficManagerActivity"></activity>
     </application>
 
 </manifest>

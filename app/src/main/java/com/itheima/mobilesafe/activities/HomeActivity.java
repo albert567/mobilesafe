@@ -79,6 +79,10 @@ public class HomeActivity extends Activity {
                         intent = new Intent(HomeActivity.this,TrafficManagerActivity.class);
                         startActivity(intent);
                         break;
+                    case 5://病毒查杀
+                        intent = new Intent(HomeActivity.this,AntiVirusActivity.class);
+                        startActivity(intent);
+                        break;
                     case 7://常用工具
                         intent = new Intent(HomeActivity.this,CommonToolsActivity.class);
                         startActivity(intent);

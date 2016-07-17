@@ -85,11 +85,14 @@ public class SplashActivity extends Activity {
                 }
             }).start();
         }
-        copyAddressDB();
+        //拷贝归属地数据库
+        copyDB("address.db");
+        //拷贝病毒数据库
+        copyDB("antivirus.db");
     }
 
-    private void copyAddressDB(){
-        File file = new File(getFilesDir(),"address.db");
+    private void copyDB(final String dbname){
+        File file = new File(getFilesDir(),dbname);
         if(file.exists()&&file.length()>0){
             Log.i(TAG,"数据库存在，无需拷贝");
         }
@@ -98,8 +101,8 @@ public class SplashActivity extends Activity {
             public void run() {
                 //把assets资产目录里面的数据库文件（在apk里面的）拷贝到手机系统里面
                 try {
-                    InputStream is = getAssets().open("address.db");
-                    File file = new File(getFilesDir(),"address.db");
+                    InputStream is = getAssets().open(dbname);
+                    File file = new File(getFilesDir(),dbname);
                     FileOutputStream fos = new FileOutputStream(file);
                     byte[] buffer = new byte[1024];
                     int len = -1;

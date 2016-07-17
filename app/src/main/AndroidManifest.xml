@@ -107,7 +107,8 @@
         <activity android:name=".activities.NumberQueryActivity" />
         <activity android:name=".activities.AppManagerActivity" />
         <activity android:name=".activities.ProcessManagerActivity" />
-        <activity android:name=".activities.TrafficManagerActivity"></activity>
+        <activity android:name=".activities.TrafficManagerActivity" />
+        <activity android:name=".activities.AntiVirusActivity"></activity>
     </application>
 
 </manifest>

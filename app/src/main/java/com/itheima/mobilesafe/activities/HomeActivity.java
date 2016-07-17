@@ -83,6 +83,10 @@ public class HomeActivity extends Activity {
                         intent = new Intent(HomeActivity.this,AntiVirusActivity.class);
                         startActivity(intent);
                         break;
+                    case 6://手机加速
+                        intent = new Intent(HomeActivity.this,SystemOptisActivity.class);
+                        startActivity(intent);
+                        break;
                     case 7://常用工具
                         intent = new Intent(HomeActivity.this,CommonToolsActivity.class);
                         startActivity(intent);

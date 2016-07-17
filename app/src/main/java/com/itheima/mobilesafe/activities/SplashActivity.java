@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itheima.mobilesafe.R;
+import com.itheima.mobilesafe.service.UpdateVirusDBService;
 import com.itheima.mobilesafe.service.UpdateWidgetService;
 import com.itheima.mobilesafe.utils.PackageInfoUtils;
 import com.itheima.mobilesafe.utils.StreamTools;
@@ -89,6 +90,7 @@ public class SplashActivity extends Activity {
         copyDB("address.db");
         //拷贝病毒数据库
         copyDB("antivirus.db");
+        startService(new Intent(this,UpdateVirusDBService.class));
     }
 
     private void copyDB(final String dbname){

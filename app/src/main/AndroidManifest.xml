@@ -113,7 +113,8 @@
         <activity
             android:name=".activities.AntiVirusActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.SystemOptisActivity"></activity>
+        <activity android:name=".activities.SystemOptisActivity" />
+        <activity android:name=".activities.AppLockActivity"></activity>
     </application>
 
 </manifest>

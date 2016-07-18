@@ -55,6 +55,15 @@ public class CommonToolsActivity extends Activity {
     }
 
     /**
+     * 进入程序锁
+     * @param view
+     */
+    public void enterAppLock(View view){
+        Intent intent = new Intent(this,AppLockActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * 进入号码归属地查询
      * @param view
      */

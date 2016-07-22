@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.itheima.mobilesafe.R;
+import com.itheima.mobilesafe.db.Dao.ApplockDao;
 import com.itheima.mobilesafe.service.CallSmsSafeService;
 import com.itheima.mobilesafe.service.ShowAddressService;
+import com.itheima.mobilesafe.service.WatchDogService;
 import com.itheima.mobilesafe.ui.SwitchImageView;
 import com.itheima.mobilesafe.utils.ServiceStatusUtils;
 
@@ -32,10 +34,13 @@ public class SettingActivity extends Activity {
     private RelativeLayout rl_setting_changestyle;
     private String[] bgNames = {"半透明","活力橙","卫士蓝","金属灰","苹果绿"};
 
+    private SwitchImageView siv_applock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
         //初始化sp
         sp = getSharedPreferences("config", Context.MODE_PRIVATE);
         siv_setting_update = (SwitchImageView)findViewById(R.id.siv_setting_update);
@@ -114,5 +119,20 @@ public class SettingActivity extends Activity {
                 builder.show();
             }
         });
+
+        siv_applock = (SwitchImageView) findViewById(R.id.siv_applock);
+        boolean applockStatus = ServiceStatusUtils.isServiceRunning(this,"com.itheima.mobilesafe.service.WatchDogService");
+        siv_applock.setSwitchStatus(applockStatus);
+    }
+
+    public void changeApplockStatus(View view){
+        Intent intent = new Intent(this, WatchDogService.class);
+            if(ServiceStatusUtils.isServiceRunning(this,"com.itheima.mobilesafe.service.WatchDogService")){
+            stopService(intent);
+            siv_applock.setSwitchStatus(false);
+        }else{
+            startService(intent);
+            siv_applock.setSwitchStatus(true);
+        }
     }
 }

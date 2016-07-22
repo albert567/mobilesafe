@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
 import com.itheima.mobilesafe.db.ApplockDBOpenHelper;
 import com.itheima.mobilesafe.db.BlackNumberDBOpenHelper;
@@ -18,13 +19,14 @@ import java.util.List;
  */
 public class ApplockDao {
     private ApplockDBOpenHelper helper;
-
+    private Context context;
     /**
      * 在构造方法里初始化helper对象
      * @param context
      */
     public ApplockDao(Context context) {
         helper = new ApplockDBOpenHelper(context);
+        this.context = context;
     }
 
     /**
@@ -37,6 +39,9 @@ public class ApplockDao {
         values.put("packname",packname);
         long result = db.insert("lockinfo",null,values);
         db.close();
+        //发送一个通知，通知内容观察者某个路径的数据变化了
+        Uri uri = Uri.parse("content://com.itheima.mobilesafe.applockdb");
+        context.getContentResolver().notifyChange(uri,null);
         if(result!=-1){
             return true;
         }else{
@@ -53,6 +58,9 @@ public class ApplockDao {
         SQLiteDatabase db = helper.getWritableDatabase();
         int result = db.delete("lockinfo","packname=?",new String[]{packname});
         db.close();
+        //发送一个通知，通知内容观察者某个路径的数据变化了
+        Uri uri = Uri.parse("content://com.itheima.mobilesafe.applockdb");
+        context.getContentResolver().notifyChange(uri,null);
         if(result>0){
             return true;
         }else{
@@ -82,14 +90,15 @@ public class ApplockDao {
      * @return
      */
     public List<String> findAll(){
-        SQLiteDatabase db = helper.getReadableDatabase();
         List<String> infos = new ArrayList<String>();
+        SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = db.query("lockinfo",new String[]{"packname"},null,null,null,null,null);
         while(cursor.moveToNext()){
             String packinfo = cursor.getString(0);
             infos.add(packinfo);
         }
         cursor.close();
+        db.close();
         return infos;
     }
 }

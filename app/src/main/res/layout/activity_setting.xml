@@ -91,6 +91,7 @@
             android:textSize="16sp"/>
     </RelativeLayout>
     <RelativeLayout
+        android:onClick="changeApplockStatus"
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,9 +101,10 @@
             android:padding="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="设置选项2"
+            android:text="程序锁看门狗服务"
             android:textSize="16sp"/>
         <com.itheima.mobilesafe.ui.SwitchImageView
+            android:id="@+id/siv_applock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/on"

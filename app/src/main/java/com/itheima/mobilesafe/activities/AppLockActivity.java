@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -90,27 +92,72 @@ public class AppLockActivity extends Activity implements View.OnClickListener{
         //给未加锁的item注册点击事件
         lv_unclock_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PackageInfo info = unlockPackinfos.get(position);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final PackageInfo info = unlockPackinfos.get(position);
                 dao.add(info.packageName);
-                //从当前页面把应用程序条目给移除
-                unlockPackinfos.remove(position);
-                unlockAdapter.notifyDataSetChanged();
-                //把数据加入到已加锁的列表里面
-                lockedPackinfos.add(info);
-                lockedAdapter.notifyDataSetChanged();
+                //动画播放不是阻塞式的操作
+                TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0,
+                        Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0,
+                        Animation.RELATIVE_TO_SELF, 0);
+                ta.setDuration(300);
+                view.startAnimation(ta);
+                ta.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        //动画开始播放了
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        //动画播放完毕
+                        //从当前页面把应用程序条目给移除
+                        unlockPackinfos.remove(position);
+                        unlockAdapter.notifyDataSetChanged();
+                        //把数据加入到已加锁的列表里面
+                        lockedPackinfos.add(info);
+                        lockedAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        //动画重复播放
+                    }
+                });
             }
         });
         lv_locked_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PackageInfo info = lockedPackinfos.get(position);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final PackageInfo info = lockedPackinfos.get(position);
                 dao.delete(info.packageName);
-                //从当前页面把应用程序条目给移除
-                lockedPackinfos.remove(position);
-                lockedAdapter.notifyDataSetChanged();
-                unlockPackinfos.add(info);
-                unlockAdapter.notifyDataSetChanged();
+
+                //动画播放不是阻塞式的操作
+                TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0,
+                        Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0,
+                        Animation.RELATIVE_TO_SELF, 0);
+                ta.setDuration(300);
+                view.startAnimation(ta);
+                ta.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        //动画开始播放了
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        //动画播放完毕
+                        //从当前页面把应用程序条目给移除
+                        lockedPackinfos.remove(position);
+                        lockedAdapter.notifyDataSetChanged();
+                        unlockPackinfos.add(info);
+                        unlockAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        //动画重复播放
+                    }
+                });
             }
         });
     }

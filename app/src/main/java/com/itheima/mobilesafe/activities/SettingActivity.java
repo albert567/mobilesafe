@@ -116,6 +116,12 @@ public class SettingActivity extends Activity {
                         dialog.dismiss();
                     }
                 });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.out.println(1/0);
+                    }
+                });
                 builder.show();
             }
         });

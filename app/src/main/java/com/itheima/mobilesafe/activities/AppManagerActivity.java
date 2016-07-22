@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.itheima.mobilesafe.R;
 import com.itheima.mobilesafe.domain.AppInfo;
 import com.itheima.mobilesafe.engine.AppInfoProvider;
+import com.itheima.mobilesafe.utils.DensityUtil;
 import com.itheima.mobilesafe.utils.SystemInfoUtils;
 
 import java.util.ArrayList;
@@ -175,7 +176,7 @@ public class AppManagerActivity extends Activity implements View.OnClickListener
                 int[] location = new int[2];
                 view.getLocationInWindow(location);
                 popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//一定要设置背景，即使透明
-                popupWindow.showAtLocation(parent, Gravity.LEFT+Gravity.TOP,65,location[1]);
+                popupWindow.showAtLocation(parent, Gravity.LEFT+Gravity.TOP, DensityUtil.dip2px(getApplicationContext(),65),location[1]);
             }
         });
     }
